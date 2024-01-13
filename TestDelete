@@ -1,0 +1,30 @@
+import java.sql.*;
+
+public class TestDelete {
+    public static void main(String args[]) throws Exception {
+        String id = "131";
+        String pwd = "apple";
+
+        // Loading the MySQL JDBC driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // Establishing a connection to the MySQL database
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BCA2db", "root", "shashank");
+
+        // Creating a statement object
+        Statement stmt = con.createStatement();
+
+        // Deleting from the database
+        String q1 = "DELETE FROM BCA2STUDENTS WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+        int x = stmt.executeUpdate(q1);
+
+        // Checking the result and printing a message
+        if (x > 0)
+            System.out.println("One User Successfully Deleted");
+        else
+            System.out.println("ERROR OCCURRED :(");
+
+        // Closing the database connection
+        con.close();
+    }
+}
