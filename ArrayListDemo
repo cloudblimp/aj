@@ -1,3 +1,14 @@
+ALGORITHM
+1.	Create an ArrayList of Strings to store student names.
+2.	Add five student names to the ArrayList.
+3.	Use an iterator to display the original list of student names.
+4.	Add two student names at positions 0 and 1 in the ArrayList.
+5.	Remove two student names of your choice from the ArrayList.
+6.	Display the final list of student names after the removal.
+7.	Sort the ArrayList in ascending order using Collections.sort().
+8.	Display the sorted list of student names.
+______________________________________________________________________________
+
 import java.util.*;
 
 public class ArrayListDemo {
