@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+class MarketQueue {
+    String typeOfFruit;
+    boolean order = true;
+
+    public synchronized void put(String typeOfFruit) {
+        if (order == false) {
+            try {
+                wait();
+            } catch (InterruptedException ie) {
+            }
+        }
+
+        this.typeOfFruit = typeOfFruit;
+        order = false;
+        System.out.println("Fruit available: " + typeOfFruit);
+        notify();
+    }
+
+    public synchronized void get() {
+        if (order == true) {
+            try {
+                wait();
+            } catch (InterruptedException ie) {
+            }
+        }
+
+        order = true;
+        System.out.println("Received Fruit: " + typeOfFruit);
+        notify();
+    }
+}
+
+class Farmer implements Runnable {
+    MarketQueue marketQueue;
+    int numOfFruits;
+    Scanner scan = new Scanner(System.in);
+
+    public Farmer(MarketQueue marketQueue) {
+        this.marketQueue = marketQueue;
+        new Thread(this, "Farmer").start();
+    }
+
+    public void run() {
+        System.out.println("Type of the fruit that Farmer has?");
+        String typeOfFruit = scan.nextLine();
+        System.out.println("Number of items (in multiples of 10)");
+        numOfFruits = scan.nextInt();
+
+        if (numOfFruits % 10 == 0) {
+            for (int i = 1; i < numOfFruits; i = i + 10) {
+                marketQueue.put(typeOfFruit + " " + (i) + " to " + (i + 9));
+            }
+        } else {
+            System.out.println("Try again in queue");
+            System.exit(0);
+        }
+    }
+}
+
+class Consumer implements Runnable {
+    MarketQueue marketQueue;
+
+    public Consumer(MarketQueue marketQueue) {
+        this.marketQueue = marketQueue;
+        new Thread(this, "Consumer").start();
+    }
+
+    public void run() {
+        while (true) {
+            marketQueue.get();
+        }
+    }
+}
+
+public class InterThreadMarket {
+    public static void main(String[] args) {
+        MarketQueue mq = new MarketQueue();
+        Farmer farmer = new Farmer(mq);
+        Consumer consumer = new Consumer(mq);
+    }
+}
