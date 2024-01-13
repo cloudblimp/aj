@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class ArrayListDemo {
+    public static void main(String args[]) {
+        // Creating ArrayList of type "String"
+        ArrayList<String> obj = new ArrayList<String>();
+
+        // Adding elements to the ArrayList
+        obj.add("Sushmitha");
+        obj.add("Kevin");
+        obj.add("Karen");
+        obj.add("Steve");
+        obj.add("Anuja");
+
+        // Displaying elements
+        System.out.println("Original ArrayList:");
+        for (String str : obj)
+            System.out.println(str);
+
+        // Adding elements at specific positions
+        obj.add(0, "Anjali");
+        obj.add(1, "Justin");
+
+        // Displaying elements after add operation
+        System.out.println("ArrayList after add operation:");
+        for (String str : obj)
+            System.out.println(str);
+
+        // Remove elements from ArrayList
+        obj.remove("Kevin");
+        obj.remove("Karen");
+
+        // Displaying elements after remove operation
+        System.out.println("ArrayList after remove operation:");
+        for (String str : obj)
+            System.out.println(str);
+
+        // Remove element from the specified index
+        obj.remove(1);
+
+        // Displaying final elements
+        System.out.println("Final ArrayList:");
+        for (String str : obj)
+            System.out.println(str);
+
+        // Sorting
+        Collections.sort(obj);
+
+        System.out.println("Sorted Student List:");
+        for (String str : obj)
+            System.out.println(str);
+    }
+}
