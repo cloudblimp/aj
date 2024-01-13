@@ -1,0 +1,66 @@
+Factorial.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculate factorial</title>
+</head>
+<body>
+	<form action="/servlet/fact">Enter n value: 
+		<input type="text" name="user" />
+		<input type="submit" value="go"/>
+	</form>
+</body>
+</html>
+____________________________________________________________
+web.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Factorial</display-name>
+  <welcome-file-list>
+    <welcome-file>Factorial.html</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Factorial</servlet-name>
+    <servlet-class>Fact</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Factorial</servlet-name>
+    <url-pattern>/servlet/fact</url-pattern>
+  </servlet-mapping>
+</web-app>
+____________________________________________________________
+fact.java
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@SuppressWarnings("serial")
+public class fact extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		int n = Integer.parseInt(request.getParameter("user"));
+		long f=1;
+		for (int i=1; i<=n; i++)
+			f=f*i;
+		out.print("Factorial of "+n+"is: "+f);
+		out.close();
+	}
+
+}
