@@ -1,0 +1,33 @@
+import java.sql.*;
+
+public class TestSelect {
+    public static void main(String args[]) throws Exception {
+        String id = "132";
+        String pwd = "tiger";
+
+        // Loading the MySQL JDBC driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // Establishing a connection to the MySQL database
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BCA2db", "root", "shashank");
+
+        // Creating a statement object
+        Statement stmt = con.createStatement();
+
+        // SELECT query
+        String q1 = "SELECT * FROM BCA2STUDENTS WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+        ResultSet rs = stmt.executeQuery(q1);
+
+        // Checking if the result set has data
+        if (rs.next()) {
+            System.out.println("User-Id : " + rs.getString(1));
+            System.out.println("Full Name : " + rs.getString(3));
+            System.out.println("E-mail : " + rs.getString(4));
+        } else {
+            System.out.println("No such user ID is already registered");
+        }
+
+        // Closing the database connection
+        con.close();
+    }
+}
